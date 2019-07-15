@@ -1,8 +1,8 @@
-import {HTTP} from '../../../main'
+import {HTTP} from '../../main'
 
 const state = {
- // url: '/street/',
-  url: 'https://api.coindesk.com/v1/bpi/currentprice.json',
+  /* url: '/street/', */
+  url: '/api/users?page=2',
   tableData: [],
   itemDefault: null,
   loading: false,

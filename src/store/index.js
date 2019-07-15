@@ -10,4 +10,4 @@ export default new Vuex.Store({
   modules: {
     'streets_module': streets
   }
-});
+})

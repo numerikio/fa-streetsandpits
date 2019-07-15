@@ -1,42 +1,43 @@
 <template>
   <div class="">
-    <h1>list of sreeets</h1>
-
+    <h1>list of sreets</h1>
+{{tableData.data}}}
   </div>
 </template>
 
 <script>
 
-  import {mapState, mapActions} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
-  export default {
-    name: 'Streets',
-    data() {
-    },
-    created() {
-      this.loadTableData(false)
-    },
-    computed: {
-      ...mapState('streets_module/streets', {
-        tableData: 'tableData',
-        itemDefault: 'itemDefault',
-        loading: 'loading',
-        isShowFormAddOrEdit: 'isShowForm'
-      })
-    },
-    methods: {
-      ...mapActions('streets_module/streets', {
-        list: 'list',
-        add: 'add',
-        edit: 'edit',
-        remove: 'remove'
-      }),
-      loadTableData(isReload) {
-        isReload = true
-        this.list(isReload)
-      },
+export default {
+  name: 'Streets',
+  data () {
+    return {}
+  },
+  created () {
+    this.loadTableData(false)
+  },
+  computed: {
+    ...mapState('streets_module/streets', {
+      tableData: 'tableData',
+      itemDefault: 'itemDefault',
+      loading: 'loading',
+      isShowFormAddOrEdit: 'isShowForm'
+    })
+  },
+  methods: {
+    ...mapActions('streets_module/streets', {
+      list: 'list',
+      add: 'add',
+      edit: 'edit',
+      remove: 'remove'
+    }),
+    loadTableData (isReload) {
+      isReload = true
+      this.list(isReload)
     }
   }
+}
 </script>
 
 <style scoped>
