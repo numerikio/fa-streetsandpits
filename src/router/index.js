@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Streets from '@/components/Streets'
+import Streets from '../components/Streets'
 
 Vue.use(Router)
 
