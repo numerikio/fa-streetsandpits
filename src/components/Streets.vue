@@ -6,10 +6,10 @@
 
       <input type="button" class="butn" value="Add street" v-on:click="addSreet(street)">
 
-      <div class="myBox" v-for="item in tableData">
+      <div class="myBox" v-for="item in tableData" :key="item.id">
         <h3> {{item.name}}</h3>
         <ul id="example-2">
-          <li v-for="i in item.pitList">
+          <li v-for="i in item.pitList" :key="i.id">
             {{i.id}}
           </li>
         </ul>
@@ -55,7 +55,7 @@ export default {
     addSreet (street) {
       if (street.name !== null) {
         this.add(street)
-        street.name = null
+        /* street.name = null */
       } else {
         console.log('input err')
       }
