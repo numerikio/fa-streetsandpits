@@ -1,7 +1,7 @@
 <template>
-  <div class="">
-    <h1>list of sreets</h1>
+  <div>
     <b-container>
+      <h1>list of sreets</h1>
       <b-form-input v-model="street.name"></b-form-input>
       <b-button v-on:click="addSreet(street)">Add street</b-button>
     </b-container>
@@ -66,6 +66,7 @@ export default {
     },
     addSreet (street) {
       if (street.name !== null) {
+        console.log(street.name)
         this.add(street)
       } else {
         console.log('input err')
@@ -89,54 +90,6 @@ export default {
   h3 {
     color: white;
 
-  }
-
-  .text {
-    padding: 9px;
-    font-size: 21px;
-    border-width: 2px;
-    border-color: #2ecc20;
-    background-color: #FFFFFF;
-    color: #1b1b1b;
-    border-style: hidden;
-    border-radius: 17px;
-    box-shadow: 4px 5px 9px rgba(66, 66, 66, .75);
-    text-shadow: 0px 0px 5px rgba(66, 66, 66, .75);
-  }
-
-  .text:focus {
-    outline: none;
-  }
-
-  .butn {
-    background: #34d95a;
-    background-image: -webkit-linear-gradient(top, #34d95a, #3db82b);
-    background-image: -moz-linear-gradient(top, #34d95a, #3db82b);
-    background-image: -ms-linear-gradient(top, #34d95a, #3db82b);
-    background-image: -o-linear-gradient(top, #34d95a, #3db82b);
-    background-image: linear-gradient(to bottom, #34d95a, #3db82b);
-    -webkit-border-radius: 28;
-    -moz-border-radius: 28;
-    border-radius: 28px;
-    font-family: Arial;
-    color: #ffffff;
-    font-size: 21px;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
-  }
-
-  .butn:hover {
-    background: #8af016;
-    background-image: -webkit-linear-gradient(top, #8af016, #75e809);
-    background-image: -moz-linear-gradient(top, #8af016, #75e809);
-    background-image: -ms-linear-gradient(top, #8af016, #75e809);
-    background-image: -o-linear-gradient(top, #8af016, #75e809);
-    background-image: linear-gradient(to bottom, #8af016, #75e809);
-    text-decoration: none;
-  }
-
-  .butn:focus {
-    outline: none;
   }
 
 </style>
