@@ -8,8 +8,7 @@ const state = {
   isShowForm: false
 }
 
-const getters = {
-}
+const getters = {}
 
 const actions = {
   list ({commit, state}, isReload) {
@@ -27,7 +26,6 @@ const actions = {
     commit('SET_IS_LOADING', true)
     HTTP.post(state.url, payload).then((response) => {
       commit('ADD', response.data)
-      console.log(payload)
     }).catch(e => {
     }).finally(() => {
       commit('SET_IS_LOADING', false)
@@ -46,11 +44,11 @@ const actions = {
   },
   remove ({state, commit}, payload) {
     commit('SET_IS_LOADING', true)
-    HTTP.put(state.url, payload).then((response) => {
-      commit('REMOVE', response.data)
+    HTTP.delete(state.url + payload).then((response) => {
+      if (response.status === 200) { commit('REMOVE_PIT', payload) }
     }).catch(e => {
     }).finally(() => (
-      commit('SET_IS_LOADING', false)
+      commit('SET_IS_LOADING', true)
     ))
   }
 }
@@ -79,9 +77,12 @@ const mutations = {
     let index = state.tableData.indexOf(state.tableData.find(todo => todo.id === payload.id))
     Object.assign(state.tableData[index], payload)
   },
-  REMOVE (state, payload) {
-    let index = state.tableData.indexOf(state.tableData.find(todo => todo.id === payload.id))
-    Object.assign(state.tableData[index], payload)
+  REMOVE_PIT (state, id) {
+    for (let item of state.tableData) {
+      item.pitList = item.pitList.filter((item) => {
+        return item.id !== id
+      })
+    }
   }
 }
 
