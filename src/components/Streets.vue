@@ -1,67 +1,84 @@
 <template>
   <div class="">
     <h1>list of sreets</h1>
-
-    <input type="text" v-model="street.name" class="text" />
-
-      <input type="button" class="butn" value="Add street" v-on:click="addSreet(street)">
-
-      <div class="myBox" v-for="item in tableData" :key="item.id">
+    <b-container>
+      <b-form-input v-model="street.name"></b-form-input>
+      <b-button v-on:click="addSreet(street)">Add street</b-button>
+    </b-container>
+    <br>
+    <b-container :key="item.id" class="" v-for="item in tableData">
+      <div class="bg bg-secondary">
         <h3> {{item.name}}</h3>
-        <ul id="example-2">
-          <li v-for="i in item.pitList" :key="i.id">
+        <b-button v-on:click="addTip(item)" variant="warning">add tip <span class="badge badge-light">{{item.pitList.length}}</span>
+        </b-button>
+
+        <b-button v-b-modal="modalId(item.id)" variant="info">details</b-button>
+
+        <b-modal :id="'modal' + item.id" :title="item.name">
+          <div :key="i.id" v-for="i in item.pitList">
             {{i.id}}
-          </li>
-        </ul>
+          </div>
+        </b-modal>
       </div>
+      <br>
+    </b-container>
 
   </div>
+
 </template>
 
 <script>
+  import {mapState, mapActions} from 'vuex'
 
-import {mapState, mapActions} from 'vuex'
-
-export default {
-  name: 'Streets',
-  data () {
-    return {
-      street: {id: null, name: null, pitList: []}
-    }
-  },
-  created () {
-    this.loadTableData(false)
-  },
-  computed: {
-    ...mapState('streets_module/streets', {
-      tableData: 'tableData',
-      itemDefault: 'itemDefault',
-      loading: 'loading',
-      isShowFormAddOrEdit: 'isShowForm'
-    })
-  },
-  methods: {
-    ...mapActions('streets_module/streets', {
-      list: 'list',
-      add: 'add',
-      edit: 'edit',
-      remove: 'remove'
-    }),
-
-    loadTableData (isReload) {
-      isReload = true
-      this.list(isReload)
+  export default {
+    name: 'Streets',
+    data() {
+      return {
+        street: {
+          id: null,
+          name: null,
+          pitList: []
+        }
+      }
     },
-    addSreet (street) {
-      if (street.name !== null) {
-        this.add(street)
-        /* street.name = null */
-      } else {
-        console.log('input err')
+    created() {
+      this.loadTableData(false)
+    },
+    computed: {
+      ...mapState('streets_module/streets', {
+        tableData: 'tableData',
+        itemDefault: 'itemDefault',
+        loading: 'loading',
+        isShowFormAddOrEdit: 'isShowForm'
+      })
+    },
+    methods: {
+      ...mapActions('streets_module/streets', {
+        list: 'list',
+        add: 'add',
+        edit: 'edit',
+        remove: 'remove'
+      }),
+
+      loadTableData(isReload) {
+        isReload = true
+        this.list(isReload)
+      },
+      addSreet(street) {
+        if (street.name !== null) {
+          this.add(street)
+        } else {
+          console.log('input err')
+        }
+      },
+      addTip(item) {
+        this.edit(item.id)
+      },
+      modalId(i) {
+        return 'modal' + i
       }
     }
   }
-}
 </script>
 
 <style scoped>
@@ -76,7 +93,7 @@ export default {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     font: normal 14px/1 "Times New Roman", Times, serif;
-    color: rgba(0,0,0,1);
+    color: rgba(0, 0, 0, 1);
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
   }
@@ -90,11 +107,12 @@ export default {
     color: #1b1b1b;
     border-style: hidden;
     border-radius: 17px;
-    box-shadow: 4px 5px 9px rgba(66,66,66,.75);
-    text-shadow: 0px 0px 5px rgba(66,66,66,.75);
+    box-shadow: 4px 5px 9px rgba(66, 66, 66, .75);
+    text-shadow: 0px 0px 5px rgba(66, 66, 66, .75);
   }
+
   .text:focus {
-    outline:none;
+    outline: none;
   }
 
   .butn {
@@ -123,8 +141,9 @@ export default {
     background-image: linear-gradient(to bottom, #8af016, #75e809);
     text-decoration: none;
   }
+
   .butn:focus {
-    outline:none;
+    outline: none;
   }
 
 </style>

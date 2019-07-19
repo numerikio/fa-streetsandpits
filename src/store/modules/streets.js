@@ -2,9 +2,7 @@ import {HTTP} from '../../main'
 
 const state = {
   url: 'street/',
-  /* url: '/api/users?page=2', */
   tableData: [],
-  /* tableData: [{'id': 1, 'name': 'AAAA', 'pitList': [{'id': 1}, {'id': 2}]}, {'id': 2, 'name': 'BBBB', 'pitList': [{'id': 3}, {'id': 4}]}], */
   itemDefault: null,
   loading: false,
   isShowForm: false
@@ -38,7 +36,7 @@ const actions = {
   },
   edit ({state, commit}, payload) {
     commit('SET_IS_LOADING', true)
-    HTTP.put(state.url, payload).then((response) => {
+    HTTP.put(state.url + payload, payload).then((response) => {
       commit('EDIT', response.data)
     }).catch(e => {
     }).finally(() => {
